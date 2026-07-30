@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4aa07fc483bce044939990b07a798a9, type: 3}
+  m_Name: CarSettings
+  m_EditorClassIdentifier: Assembly-CSharp::CarSettingsSO
+  _prefab: {fileID: 0}
+  _visual: {fileID: 0}
+  _maxSpeed: 10000
+  _weight: 400
+  _horsePower: 500
+  _brakePower: 350
+  _timeToResetRotation: 5.5
+  _steeringPower: 50
+  _steeringCompensation: 1.25
+  _drivingType: 1
+  _maxDurability: 100
+  _durabilityToCharge: 0.5
+  _maxGas: 100
+  _gasUsage: 0
+  _gasToCharge: 0.5
