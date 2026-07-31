@@ -16,7 +16,7 @@ MonoBehaviour:
   _visual: {fileID: 0}
   _maxSpeed: 10000
   _weight: 1500
-  _horsePower: 400
+  _horsePower: 1000
   _brakePower: 225
   _timeToResetRotation: 2
   _steeringPower: 20
