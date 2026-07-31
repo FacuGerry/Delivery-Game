@@ -15,13 +15,13 @@ MonoBehaviour:
   _prefab: {fileID: 0}
   _visual: {fileID: 0}
   _maxSpeed: 10000
-  _weight: 400
-  _horsePower: 500
-  _brakePower: 350
-  _timeToResetRotation: 5.5
-  _steeringPower: 50
-  _steeringCompensation: 1.25
-  _drivingType: 1
+  _weight: 1500
+  _horsePower: 400
+  _brakePower: 225
+  _timeToResetRotation: 2
+  _steeringPower: 20
+  _steeringCompensation: 1.15
+  _drivingType: 2
   _maxDurability: 100
   _durabilityToCharge: 0.5
   _maxGas: 100
