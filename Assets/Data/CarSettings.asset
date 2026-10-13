@@ -27,3 +27,6 @@ MonoBehaviour:
   _maxGas: 100
   _gasUsage: 0
   _gasToCharge: 0.5
+  _accelerationSmoothness: 3
+  _brakeSmoothness: 3
+  _steerSmoothness: 10

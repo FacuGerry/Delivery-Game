@@ -30,6 +30,11 @@ public class CarSettingsSO : ScriptableObject
     [SerializeField] private float _gasUsage;
     [SerializeField] private float _gasToCharge;
 
+    [Header("Smoothness")]
+    [SerializeField] private float _accelerationSmoothness;
+    [SerializeField] private float _brakeSmoothness;
+    [SerializeField] private float _steerSmoothness;
+
     // GETTERS
     public GameObject Prefab => _prefab;
     public GameObject Visual => _visual;
@@ -46,4 +51,7 @@ public class CarSettingsSO : ScriptableObject
     public float MaxGas => _maxGas;
     public float GasUsage => _gasUsage;
     public float GasToCharge => _gasToCharge;
+    public float AccelerationSmoothness => _accelerationSmoothness;
+    public float BrakeSmoothness => _brakeSmoothness;
+    public float SteerSmoothness => _steerSmoothness;
 }

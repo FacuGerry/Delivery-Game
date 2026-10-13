@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: FacuGerry
   productName: Delivery Game
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -854,7 +854,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: a2de6b78-3fb5-474a-9bb1-bc28e5685251
   framebufferDepthMemorylessMode: 0

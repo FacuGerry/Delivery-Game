@@ -1,12 +1,20 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using UnityEngine.InputSystem;
 
 // Suggestion: [Alta] - Clase con muchas responsabilidades: movimiento, sincronización de visuales de ruedas, gestión de input, manejo de combustible y reset de posición.
 [RequireComponent(typeof(Rigidbody), typeof(GasSystem))]
 public class CarController : MonoBehaviour
 {
     public event Action<float> OnSpeedChange;
+
+    [Header("Input actions")]
+    [SerializeField] private InputActionReference _accelerate;
+    [SerializeField] private InputActionReference _brake;
+    [SerializeField] private InputActionReference _reverse;
+    [SerializeField] private InputActionReference _steer;
+    [SerializeField] private InputActionReference _reset;
 
     [Header("Wheel Colliders")]
     [SerializeField] private WheelCollider _wheelFR;
@@ -22,11 +30,15 @@ public class CarController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private CarSettingsSO _data;
-    [SerializeField] private KeyBindingsSO _keys;
 
-    private float _accelerationForce;
-    private float _brakeForce;
+    private float _accelerationForce = 0f;
+    private float _brakeForce = 0f;
     private float _steeringForce;
+
+    private float _endAcceleration;
+    private float _endBrake;
+    private float _endReverse;
+    private float _endSteer;
 
     private Rigidbody _rb;
     private GasSystem _gasSystem;
@@ -42,6 +54,12 @@ public class CarController : MonoBehaviour
     private void OnEnable()
     {
         _gasSystem.OnGasEmpty += OnGasEmpty_StopMoving;
+
+        EnableAction(_accelerate, CaptureAccelerate);
+        EnableAction(_brake, CaptureBrake);
+        EnableAction(_reverse, CaptureReverse);
+        EnableAction(_steer, CaptureSteer);
+        EnableAction(_reset, RestartCar);
     }
 
     private void Start()
@@ -52,14 +70,13 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (_canMove)
-            _accelerationForce = Input.GetAxis("Vertical") * _data.HorsePower;
+        _accelerationForce = Mathf.Lerp(_accelerationForce, (_endAcceleration - _endReverse), _data.AccelerationSmoothness * Time.deltaTime);
+        _steeringForce = Mathf.Lerp(_steeringForce, _endSteer, _data.SteerSmoothness * Time.deltaTime);
 
-        _brakeForce = Input.GetAxis("Brake") * _data.BrakePower;
-        _steeringForce = Input.GetAxis("Horizontal") * _data.SteeringPower;
-
-        if (Input.GetKeyDown(_keys.restartCar))
-            RestartCar();
+        if (_endBrake == 0f)
+            _brakeForce = 0f;
+        else
+            _brakeForce = Mathf.Lerp(_brakeForce, _endBrake, _data.BrakeSmoothness * Time.deltaTime);
 
         OnSpeedChange?.Invoke(_rb.linearVelocity.magnitude * 3.6f);
     }
@@ -83,12 +100,64 @@ public class CarController : MonoBehaviour
     private void OnDisable()
     {
         _gasSystem.OnGasEmpty -= OnGasEmpty_StopMoving;
+
+        DisableAction(_accelerate, CaptureAccelerate);
+        DisableAction(_brake, CaptureBrake);
+        DisableAction(_reverse, CaptureReverse);
+        DisableAction(_steer, CaptureSteer);
+        DisableAction(_reset, RestartCar);
+    }
+
+    private void EnableAction(InputActionReference actionRef, Action<InputAction.CallbackContext> callback)
+    {
+        if (actionRef != null && actionRef.action != null)
+        {
+            actionRef.action.Enable();
+            actionRef.action.started += callback;
+            actionRef.action.performed += callback;
+            actionRef.action.canceled += callback;
+        }
+    }
+
+    private void DisableAction(InputActionReference actionRef, Action<InputAction.CallbackContext> callback)
+    {
+        if (actionRef != null && actionRef.action != null)
+        {
+            actionRef.action.started -= callback;
+            actionRef.action.performed -= callback;
+            actionRef.action.canceled -= callback;
+            actionRef.action.Disable();
+        }
+    }
+
+    private void CaptureAccelerate(InputAction.CallbackContext obj)
+    {
+        float rawAcceleration = obj.ReadValue<float>();
+        _endAcceleration = rawAcceleration * _data.HorsePower;
+    }
+
+    private void CaptureBrake(InputAction.CallbackContext obj)
+    {
+        float rawBrake = _brake.action.ReadValue<float>();
+        _endBrake = rawBrake * _data.BrakePower;
+    }
+
+    private void CaptureReverse(InputAction.CallbackContext obj)
+    {
+        float rawReverse = _reverse.action.ReadValue<float>();
+        _endReverse = rawReverse * _data.HorsePower;
+    }
+
+    private void CaptureSteer(InputAction.CallbackContext obj)
+    {
+        float rawSteer = _steer.action.ReadValue<Vector2>().x;
+        _endSteer = rawSteer * _data.SteeringPower;
     }
 
     private void Accelerate()
     {
         if (_rb.linearVelocity.magnitude >= _data.MaxSpeed)
-            _accelerationForce = _data.MaxSpeed;
+            _accelerationForce = 0f;
 
         if (_data.DrivingType != DrivingType.RWD)
         {
@@ -105,6 +174,9 @@ public class CarController : MonoBehaviour
 
     private void Brake()
     {
+        if (_brakeForce < 0.01f)
+            _brakeForce = 0f;
+
         _wheelFR.brakeTorque = _brakeForce;
         _wheelFL.brakeTorque = _brakeForce;
         _wheelRR.brakeTorque = _brakeForce;
@@ -137,7 +209,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void RestartCar()
+    private void RestartCar(InputAction.CallbackContext context)
     {
         _rb.linearVelocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
