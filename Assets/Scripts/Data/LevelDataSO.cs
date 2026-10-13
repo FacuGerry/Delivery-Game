@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CarSettings", menuName = "Car/CarSettings")]
+[CreateAssetMenu(fileName = "LevelData", menuName = "GameSettings/LevelData")]
 
 public class LevelDataSO : ScriptableObject
 {

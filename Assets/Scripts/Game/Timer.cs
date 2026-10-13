@@ -34,4 +34,11 @@ public class Timer : MonoBehaviour
             }
         }
     }
+
+    // Can add or substract time, depending if extraTime is positive or negative
+    public void ModifyTime(float extraTime)
+    {
+        _time += extraTime;
+        OnTimerUpdated?.Invoke(_time);
+    }
 }
