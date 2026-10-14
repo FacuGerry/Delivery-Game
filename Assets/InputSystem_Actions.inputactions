@@ -641,28 +641,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "fd418dbd-eef4-40c6-a4ba-48776dd62292",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "043e0e5b-9b97-4d72-860a-6416473a2bd5",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "42edf0ef-fa28-449e-92ab-bb46bda74dcf",
                     "path": "<Keyboard>/a",
@@ -696,28 +674,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "b559e3be-c1f9-4268-8092-58c8bd6522ae",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "70995462-ff44-46a7-8cff-4df228b684c3",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "0a08df69-776b-4934-9645-4459de64f88e",
                     "path": "<Gamepad>/leftStick/left",
@@ -740,7 +696,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector Gamepad",
+                    "name": "2D Vector Switch",
                     "id": "c644bd63-d414-4e2c-8f81-e11f19717d81",
                     "path": "2DVector",
                     "interactions": "",
@@ -749,28 +705,6 @@
                     "action": "Steer",
                     "isComposite": true,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "e27ea876-b1c5-4820-bad1-d535f87a797d",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "565808cf-f2db-4b40-a9a2-6fc2c1f2acf1",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Steer",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "left",
@@ -787,6 +721,39 @@
                     "name": "right",
                     "id": "2854794b-58e0-4611-a9fc-c134ae67ffeb",
                     "path": "<SwitchProControllerHID>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector Gamepad",
+                    "id": "6255349c-5e43-44ca-86c5-018ee223d0e6",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steer",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "e5b23ac5-ec35-415b-ae5e-7a361ae7f87f",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Steer",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "bf70c581-9e2a-4816-a200-8ec9b2bdb55d",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

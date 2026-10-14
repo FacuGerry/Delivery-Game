@@ -156,7 +156,7 @@ public class CarController : MonoBehaviour
 
     private void Accelerate()
     {
-        if (_rb.linearVelocity.magnitude >= _data.MaxSpeed)
+        if (_rb.linearVelocity.magnitude >= _data.MaxSpeed || _brakeForce > 0.01f)
             _accelerationForce = 0f;
 
         if (_data.DrivingType != DrivingType.RWD)
