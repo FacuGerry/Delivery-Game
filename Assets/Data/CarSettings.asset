@@ -21,6 +21,7 @@ MonoBehaviour:
   _timeToResetRotation: 2
   _steeringPower: 20
   _steeringCompensation: 1.15
+  _driftingPower: 2
   _drivingType: 2
   _maxDurability: 100
   _durabilityToCharge: 0.5

@@ -14,6 +14,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private InputActionReference _brake;
     [SerializeField] private InputActionReference _reverse;
     [SerializeField] private InputActionReference _steer;
+    [SerializeField] private InputActionReference _drift;
     [SerializeField] private InputActionReference _reset;
 
     [Header("Wheel Colliders")]
@@ -40,6 +41,8 @@ public class CarController : MonoBehaviour
     private float _endReverse;
     private float _endSteer;
 
+    private bool _isDrifting;
+
     private Rigidbody _rb;
     private GasSystem _gasSystem;
 
@@ -59,6 +62,7 @@ public class CarController : MonoBehaviour
         EnableAction(_brake, CaptureBrake);
         EnableAction(_reverse, CaptureReverse);
         EnableAction(_steer, CaptureSteer);
+        EnableAction(_drift, CaptureDrift);
         EnableAction(_reset, RestartCar);
     }
 
@@ -71,7 +75,9 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         _accelerationForce = Mathf.Lerp(_accelerationForce, (_endAcceleration - _endReverse), _data.AccelerationSmoothness * Time.deltaTime);
-        _steeringForce = Mathf.Lerp(_steeringForce, _endSteer, _data.SteerSmoothness * Time.deltaTime);
+
+        float finalSteerAngle = _isDrifting ? _endSteer * _data.DriftingPower : _endSteer;
+        _steeringForce = Mathf.Lerp(_steeringForce, finalSteerAngle, _data.SteerSmoothness * Time.deltaTime);
 
         if (_endBrake == 0f)
             _brakeForce = 0f;
@@ -105,6 +111,7 @@ public class CarController : MonoBehaviour
         DisableAction(_brake, CaptureBrake);
         DisableAction(_reverse, CaptureReverse);
         DisableAction(_steer, CaptureSteer);
+        DisableAction(_drift, CaptureDrift);
         DisableAction(_reset, RestartCar);
     }
 
@@ -154,12 +161,25 @@ public class CarController : MonoBehaviour
         _endSteer = rawSteer * _data.SteeringPower;
     }
 
+    private void CaptureDrift(InputAction.CallbackContext obj)
+    {
+        float rawDrift = _drift.action.ReadValue<float>();
+        _isDrifting = !(rawDrift < 0.5f && rawDrift > -0.5f);
+    }
+
+
     private void Accelerate()
     {
         if (_rb.linearVelocity.magnitude >= _data.MaxSpeed || _brakeForce > 0.01f)
             _accelerationForce = 0f;
 
-        if (_data.DrivingType != DrivingType.RWD)
+        if (_isDrifting)
+        {
+            _wheelFR.motorTorque = 0.0f;
+            _wheelFL.motorTorque = 0.0f;
+        }
+
+        if (_data.DrivingType != DrivingType.RWD || !_isDrifting)
         {
             _wheelFR.motorTorque = _accelerationForce;
             _wheelFL.motorTorque = _accelerationForce;

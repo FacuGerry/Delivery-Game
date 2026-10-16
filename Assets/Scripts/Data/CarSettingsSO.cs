@@ -18,6 +18,9 @@ public class CarSettingsSO : ScriptableObject
     [Min(0.01f)][SerializeField] private float _steeringPower;
     [Min(1.01f)][SerializeField] private float _steeringCompensation;
 
+    [Header("Drifting")]
+    [Min(0.01f)][SerializeField] private float _driftingPower;
+
     [Header("Driving type")]
     [SerializeField] private DrivingType _drivingType;
 
@@ -45,6 +48,7 @@ public class CarSettingsSO : ScriptableObject
     public float TimeToResetRotation => _timeToResetRotation;
     public float SteeringPower => _steeringPower;
     public float SteeringCompensation => _steeringCompensation;
+    public float DriftingPower => _driftingPower;
     public DrivingType DrivingType => _drivingType;
     public float MaxDurability => _maxDurability;
     public float DurabilityToCharge => _durabilityToCharge;
