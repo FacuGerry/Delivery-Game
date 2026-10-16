@@ -219,7 +219,7 @@ public class CarController : MonoBehaviour
 
     private void FixRotation()
     {
-        if (Mathf.Abs(_steeringForce) < 0.01f)
+        if (Mathf.Abs(_endSteer) < 0.01f)
         {
             Quaternion currentRot = _rb.rotation;
 
