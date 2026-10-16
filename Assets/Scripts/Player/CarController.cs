@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +7,7 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
     public event Action<float> OnSpeedChange;
+    public event Action<Transform> OnCarRestarted;
 
     [Header("Input actions")]
     [SerializeField] private InputActionReference _accelerate;
@@ -237,7 +237,7 @@ public class CarController : MonoBehaviour
         _wheelFR.steerAngle = 0;
         _wheelFL.steerAngle = 0;
 
-        transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        OnCarRestarted?.Invoke(transform);
     }
 
     private void SyncVisuals(WheelCollider coll, Transform visual)
