@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2763910687036074857}
   - component: {fileID: 8594582323108664375}
   m_Layer: 0
-  m_Name: Car
+  m_Name: Pick-up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   _brake: {fileID: -6897832734218424524, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _reverse: {fileID: 406334303170933412, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _steer: {fileID: 3606471075249093623, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  _drift: {fileID: -8309053502693184198, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _reset: {fileID: -4190999989659641652, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _wheelFR: {fileID: 517106776037542877}
   _wheelFL: {fileID: 7159612988624005080}
